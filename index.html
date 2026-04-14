@@ -3,528 +3,459 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SJ Motors — Material Registry Portal</title>
-<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
+<title>Lingaraj Ojha | SAP MM Consultant</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
 <style>
-  *{box-sizing:border-box;margin:0;padding:0}
-  :root{--brand:#1A3A6B;--brand-dark:#0f2347;--gold:#E8A020;--steel:#12233F;--light:#E8EEF7;--gray:#f5f6f8;--border:#DDE3EC;--text:#1a1a2e;--muted:#64748b}
-  body{font-family:'Barlow',sans-serif;background:#f0f2f7;color:var(--text);min-height:100vh}
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#12233F;--brand:#1A3A6B;--gold:#E8A020;--light:#E8EEF7;--text:#1a1a2e;--muted:#64748b;--border:#DDE3EC;--bg:#f0f2f7}
+body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text)}
 
-  /* HEADER */
-  .header{background:var(--steel);padding:0 2rem;display:flex;align-items:stretch;border-bottom:3px solid var(--gold);position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,0.3)}
-  .logo-wrap{display:flex;align-items:center;gap:12px;padding:14px 2rem 14px 0;border-right:1px solid rgba(255,255,255,0.1);margin-right:2rem}
-  .logo-badge{width:40px;height:40px;background:var(--gold);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;color:#fff;letter-spacing:1px}
-  .logo-text h1{font-family:'Barlow Condensed',sans-serif;font-size:19px;font-weight:700;color:#fff;letter-spacing:1px;line-height:1.2}
-  .logo-text p{font-size:10px;color:rgba(255,255,255,0.5);letter-spacing:2px;text-transform:uppercase}
-  nav{display:flex;align-items:center;gap:4px;flex:1}
-  .nav-btn{padding:8px 16px;border-radius:6px;border:none;font-family:'Barlow',sans-serif;font-size:13px;font-weight:500;cursor:pointer;background:transparent;color:rgba(255,255,255,0.6);transition:all 0.15s;letter-spacing:0.3px}
-  .nav-btn:hover{background:rgba(255,255,255,0.08);color:#fff}
-  .nav-btn.active{background:var(--gold);color:#fff}
-  .sap-status{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:20px;padding:5px 14px;font-size:12px;color:rgba(255,255,255,0.7);margin-left:auto}
-  .dot{width:7px;height:7px;border-radius:50%;background:#4ade80;animation:pulse 2s infinite}
-  @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+/* NAV */
+nav{background:var(--navy);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;border-bottom:3px solid var(--gold)}
+.nav-logo{display:flex;align-items:center;gap:10px;padding:14px 0}
+.nav-badge{width:36px;height:36px;background:var(--gold);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;color:#fff}
+.nav-name{font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:700;color:#fff;letter-spacing:1px}
+.nav-links{display:flex;gap:4px}
+.nav-link{padding:8px 14px;border-radius:6px;border:none;font-family:'Barlow',sans-serif;font-size:13px;color:rgba(255,255,255,0.65);background:transparent;cursor:pointer;text-decoration:none;transition:all 0.15s}
+.nav-link:hover{background:rgba(255,255,255,0.08);color:#fff}
+.nav-link.active{background:var(--gold);color:#fff}
 
-  /* PAGES */
-  .page{display:none;padding:2rem;max-width:1100px;margin:0 auto}
-  .page.active{display:block}
-  .page-title{font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:700;margin-bottom:4px;color:var(--text)}
-  .page-sub{font-size:13px;color:var(--muted);margin-bottom:2rem}
+/* HERO */
+.hero{background:var(--navy);padding:4rem 2rem 3rem;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-60px;right:-60px;width:300px;height:300px;border-radius:50%;background:rgba(232,160,32,0.06)}
+.hero::after{content:'';position:absolute;bottom:-40px;left:-40px;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,0.03)}
+.hero-avatar{width:110px;height:110px;border-radius:50%;border:4px solid var(--gold);margin:0 auto 1.5rem;background:var(--brand);display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-size:36px;font-weight:700;color:#fff;position:relative;z-index:1}
+.hero h1{font-family:'Barlow Condensed',sans-serif;font-size:42px;font-weight:700;color:#fff;letter-spacing:2px;position:relative;z-index:1}
+.hero h1 span{color:var(--gold)}
+.hero-title{font-size:16px;color:rgba(255,255,255,0.6);margin:10px 0 20px;letter-spacing:1px;position:relative;z-index:1}
+.hero-tags{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;position:relative;z-index:1}
+.hero-tag{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:20px;padding:5px 16px;font-size:13px;color:rgba(255,255,255,0.8)}
+.hero-tag.gold{background:rgba(232,160,32,0.15);border-color:rgba(232,160,32,0.4);color:var(--gold)}
+.hero-contact{display:flex;gap:20px;justify-content:center;margin-top:24px;flex-wrap:wrap;position:relative;z-index:1}
+.hero-contact a{color:rgba(255,255,255,0.6);font-size:13px;text-decoration:none;display:flex;align-items:center;gap:6px;transition:color 0.15s}
+.hero-contact a:hover{color:var(--gold)}
 
-  /* STATS */
-  .stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:2rem}
-  .stat-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:1rem 1.25rem}
-  .stat-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px}
-  .stat-num{font-family:'Barlow Condensed',sans-serif;font-size:30px;font-weight:700}
-  .blue{color:var(--brand)} .green{color:#16a34a} .amber{color:#b45309} .red{color:#dc2626}
-  .stat-note{font-size:11px;color:var(--muted);margin-top:4px}
-  .prog-row{display:flex;align-items:center;gap:8px;margin-top:6px}
-  .prog-bar{flex:1;height:5px;background:#e2e8f0;border-radius:3px;overflow:hidden}
-  .prog-fill{height:100%;background:var(--gold);border-radius:3px}
+/* SECTIONS */
+.section{max-width:1000px;margin:0 auto;padding:3rem 2rem}
+.sec-title{font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:700;color:var(--brand);margin-bottom:1.5rem;display:flex;align-items:center;gap:12px}
+.sec-title::after{content:'';flex:1;height:2px;background:linear-gradient(to right,var(--border),transparent)}
 
-  /* TABLE */
-  .toolbar{display:flex;gap:10px;align-items:center;margin-bottom:1rem}
-  .search-wrap{position:relative;flex:1}
-  .search-wrap input{width:100%;padding:8px 12px 8px 36px;border:1px solid var(--border);border-radius:8px;font-size:13px;font-family:'Barlow',sans-serif;background:#fff;color:var(--text)}
-  .search-wrap input:focus{outline:none;border-color:var(--brand)}
-  .srch-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--muted);pointer-events:none}
-  select.filter{padding:8px 12px;border:1px solid var(--border);border-radius:8px;font-family:'Barlow',sans-serif;font-size:13px;background:#fff;color:var(--text);cursor:pointer}
-  select.filter:focus{outline:none}
-  .btn-primary{background:var(--brand);color:#fff;border:none;padding:8px 18px;border-radius:8px;font-family:'Barlow',sans-serif;font-size:13px;font-weight:500;cursor:pointer;white-space:nowrap;transition:background 0.15s}
-  .btn-primary:hover{background:var(--brand-dark)}
-  .btn-outline{background:#fff;color:var(--text);border:1px solid var(--border);padding:8px 18px;border-radius:8px;font-family:'Barlow',sans-serif;font-size:13px;font-weight:500;cursor:pointer;transition:background 0.15s}
-  .btn-outline:hover{background:var(--gray)}
+/* SUMMARY CARD */
+.summary-card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:1.75rem;border-left:4px solid var(--brand)}
+.summary-card p{font-size:15px;color:#333;line-height:1.8;margin-bottom:10px}
+.summary-card p:last-child{margin-bottom:0}
 
-  .table-card{background:#fff;border:1px solid var(--border);border-radius:12px;overflow:hidden}
-  table{width:100%;border-collapse:collapse;font-size:13px;table-layout:fixed}
-  thead tr{background:var(--gray)}
-  th{padding:10px 14px;text-align:left;font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--border);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-  td{padding:11px 14px;border-bottom:1px solid var(--border);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;vertical-align:middle}
-  tr:last-child td{border-bottom:none}
-  tr:hover td{background:#fafbff}
-  .mono{font-family:'Courier New',monospace;font-size:12px}
+/* EXPERIENCE */
+.exp-item{background:#fff;border:1px solid var(--border);border-radius:14px;padding:1.5rem;margin-bottom:1rem;position:relative;transition:box-shadow 0.2s}
+.exp-item:hover{box-shadow:0 4px 20px rgba(26,58,107,0.1)}
+.exp-item::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--brand);border-radius:14px 0 0 14px}
+.exp-header{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;margin-bottom:10px}
+.exp-role{font-size:17px;font-weight:600;color:var(--brand)}
+.exp-date{font-size:12px;color:#fff;background:var(--brand);padding:3px 10px;border-radius:20px;white-space:nowrap;flex-shrink:0}
+.exp-company{font-size:13px;color:var(--muted);margin-bottom:12px;font-style:italic}
+.exp-bullets{list-style:none;padding:0}
+.exp-bullets li{font-size:14px;color:#444;padding:5px 0 5px 18px;position:relative;line-height:1.6}
+.exp-bullets li::before{content:'▸';position:absolute;left:0;color:var(--gold);font-size:12px;top:6px}
 
-  /* BADGES */
-  .badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:500}
-  .b-synced{background:#dcfce7;color:#166534}
-  .b-pending{background:#fef9c3;color:#854d0e}
-  .b-failed{background:#fee2e2;color:#991b1b}
-  .b-draft{background:#f1f5f9;color:#64748b;border:1px solid var(--border)}
+/* SKILLS GRID */
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+.skill-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:1rem;display:flex;align-items:center;gap:12px;transition:border-color 0.2s}
+.skill-card:hover{border-color:var(--brand)}
+.skill-icon{width:36px;height:36px;border-radius:8px;background:var(--light);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.skill-icon svg{width:18px;height:18px;stroke:var(--brand);fill:none;stroke-width:1.5}
+.skill-name{font-size:13px;font-weight:500;color:var(--text)}
 
-  .act-btn{background:none;border:1px solid var(--border);border-radius:5px;padding:4px 10px;font-size:12px;cursor:pointer;font-family:'Barlow',sans-serif;margin-right:4px;transition:background 0.1s}
-  .act-btn:hover{background:var(--gray)}
-  .act-btn.sync{color:#1d6db5;border-color:#93c5fd}
-  .act-btn.sync:hover{background:#eff6ff}
+/* COMPETENCY PILLS */
+.pills{display:flex;flex-wrap:wrap;gap:10px}
+.pill{background:var(--light);border:1px solid var(--border);border-radius:20px;padding:6px 16px;font-size:13px;color:var(--brand);font-weight:500}
+.pill:hover{background:var(--brand);color:#fff;border-color:var(--brand);cursor:default;transition:all 0.15s}
 
-  /* FORM */
-  .form-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:1.5rem;margin-bottom:1.25rem}
-  .form-card h3{font-family:'Barlow Condensed',sans-serif;font-size:17px;font-weight:700;color:var(--text);margin-bottom:1rem}
-  .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
-  .fg{display:flex;flex-direction:column;gap:5px}
-  .fg.full{grid-column:1/-1}
-  .fg label{font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.8px}
-  .fg input,.fg select,.fg textarea{padding:8px 12px;border:1px solid var(--border);border-radius:8px;font-family:'Barlow',sans-serif;font-size:13px;color:var(--text);background:#fff}
-  .fg input:focus,.fg select:focus,.fg textarea:focus{outline:none;border-color:var(--brand)}
-  .fg textarea{resize:vertical;min-height:70px}
-  .fsec{font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);font-weight:600;margin:1.25rem 0 0.75rem;padding-bottom:6px;border-bottom:1px solid var(--border)}
+/* EDUCATION / CERT */
+.edu-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.edu-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:1.25rem}
+.edu-degree{font-size:15px;font-weight:600;color:var(--brand);margin-bottom:4px}
+.edu-school{font-size:13px;color:var(--muted)}
+.edu-year{display:inline-block;margin-top:8px;background:var(--light);border-radius:20px;padding:3px 12px;font-size:12px;color:var(--brand);font-weight:500}
 
-  /* API LOG */
-  .api-log{background:var(--steel);border-radius:10px;padding:1rem 1.25rem;font-family:'Courier New',monospace;font-size:12px;line-height:1.9;min-height:100px;max-height:200px;overflow-y:auto;margin-top:1rem;display:none}
-  .log-row{display:flex;gap:12px}
-  .lt{color:#64748b;min-width:78px}
-  .lok{color:#4ade80} .lerr{color:#f87171} .linf{color:#60a5fa}
-  .lmsg{color:#e2e8f0}
+/* STATS ROW */
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:2rem}
+.stat-box{background:#fff;border:1px solid var(--border);border-radius:12px;padding:1.25rem;text-align:center}
+.stat-num{font-family:'Barlow Condensed',sans-serif;font-size:34px;font-weight:700;color:var(--brand)}
+.stat-lbl{font-size:12px;color:var(--muted);margin-top:4px;text-transform:uppercase;letter-spacing:1px}
 
-  /* CONFIG */
-  .cfg-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:1.25rem;margin-bottom:1rem}
-  .cfg-card h3{font-family:'Barlow Condensed',sans-serif;font-size:17px;font-weight:700;margin-bottom:1rem}
+/* CONTACT SECTION */
+.contact-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
+.contact-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:1.25rem;display:flex;align-items:center;gap:14px}
+.contact-icon{width:42px;height:42px;border-radius:10px;background:var(--light);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.contact-icon svg{width:20px;height:20px;stroke:var(--brand);fill:none;stroke-width:1.5}
+.contact-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:3px}
+.contact-val{font-size:14px;color:var(--text);font-weight:500}
 
-  /* MODAL */
-  .modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:200;align-items:center;justify-content:center}
-  .modal-bg.open{display:flex}
-  .modal{background:#fff;border-radius:14px;width:560px;max-width:95vw;border:1px solid var(--border);max-height:88vh;overflow-y:auto}
-  .modal-head{padding:1.25rem 1.5rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:#fff}
-  .modal-head h2{font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:700}
-  .modal-x{background:none;border:none;cursor:pointer;font-size:22px;color:var(--muted);padding:2px 6px;border-radius:4px;line-height:1}
-  .modal-x:hover{background:var(--gray)}
-  .modal-body{padding:1.5rem}
-  .modal-foot{padding:1rem 1.5rem;border-top:1px solid var(--border);display:flex;gap:10px;justify-content:flex-end;align-items:center}
-  .modal-note{font-size:11px;color:var(--muted);margin-right:auto}
+/* FOOTER */
+footer{background:var(--navy);text-align:center;padding:2rem;margin-top:3rem;border-top:3px solid var(--gold)}
+footer p{color:rgba(255,255,255,0.5);font-size:13px}
+footer span{color:var(--gold)}
 
-  /* TOAST */
-  .toast{position:fixed;bottom:2rem;right:2rem;z-index:300;background:var(--steel);color:#fff;padding:12px 20px;border-radius:10px;font-size:13px;opacity:0;transform:translateY(10px);transition:all 0.3s;max-width:340px;pointer-events:none}
-  .toast.show{opacity:1;transform:translateY(0)}
-  .toast.success{border-left:4px solid #4ade80}
-  .toast.error{border-left:4px solid #f87171}
-  .toast.info{border-left:4px solid #60a5fa}
+/* PAGE ROUTING */
+.page{display:none}.page.active{display:block}
 
-  /* WELCOME BANNER */
-  .welcome-banner{background:var(--brand);border-radius:14px;padding:2rem;margin-bottom:2rem;display:flex;align-items:center;gap:2rem;color:#fff}
-  .wb-badge{width:64px;height:64px;background:var(--gold);border-radius:12px;display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:700;color:#fff;flex-shrink:0}
-  .wb-text h2{font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:700;letter-spacing:0.5px}
-  .wb-text p{font-size:14px;color:rgba(255,255,255,0.7);margin-top:4px}
-  .wb-actions{margin-left:auto;display:flex;gap:10px;flex-shrink:0}
-  .wb-btn{background:var(--gold);color:#fff;border:none;padding:10px 22px;border-radius:8px;font-family:'Barlow',sans-serif;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap}
-  .wb-btn.outline{background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.3)}
-
-  @media(max-width:720px){
-    .stats-row{grid-template-columns:1fr 1fr}
-    .form-grid{grid-template-columns:1fr}
-    .fg.full{grid-column:1}
-    .wb-actions{display:none}
-    .header{flex-wrap:wrap;padding:0 1rem}
-    nav{overflow-x:auto}
-    .page{padding:1rem}
-  }
+@media(max-width:700px){
+  .stats-row{grid-template-columns:1fr 1fr}
+  .edu-grid{grid-template-columns:1fr}
+  .contact-grid{grid-template-columns:1fr}
+  .hero h1{font-size:30px}
+  nav .nav-links{display:none}
+}
 </style>
 </head>
 <body>
 
-<div class="header">
-  <div class="logo-wrap">
-    <div class="logo-badge">SJ</div>
-    <div class="logo-text">
-      <h1>SJ Motors</h1>
-      <p>Material Registry Portal</p>
-    </div>
+<nav>
+  <div class="nav-logo">
+    <div class="nav-badge">LO</div>
+    <span class="nav-name">LINGARAJ OJHA</span>
   </div>
-  <nav>
-    <button class="nav-btn active" onclick="showPage('dashboard')">Dashboard</button>
-    <button class="nav-btn" onclick="showPage('materials')">Materials</button>
-    <button class="nav-btn" onclick="showPage('register')">Register New</button>
-    <button class="nav-btn" onclick="showPage('config')">SAP Config</button>
-  </nav>
-  <div class="sap-status">
-    <div class="dot"></div>
-    SAP ECC Connected
+  <div class="nav-links">
+    <a class="nav-link active" onclick="showPage('home')">Home</a>
+    <a class="nav-link" onclick="showPage('experience')">Experience</a>
+    <a class="nav-link" onclick="showPage('skills')">Skills</a>
+    <a class="nav-link" onclick="showPage('education')">Education</a>
+    <a class="nav-link" onclick="showPage('contact')">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO (shown on all pages) -->
+<div class="hero">
+  <div class="hero-avatar">LO</div>
+  <h1>LINGARAJ <span>OJHA</span></h1>
+  <p class="hero-title">SAP MM Consultant &nbsp;|&nbsp; Inventory Accuracy &amp; Control Manager</p>
+  <div class="hero-tags">
+    <span class="hero-tag gold">6+ Years Experience</span>
+    <span class="hero-tag">SAP S/4HANA</span>
+    <span class="hero-tag">Procurement</span>
+    <span class="hero-tag">Inventory Control</span>
+    <span class="hero-tag">Loss Prevention</span>
+  </div>
+  <div class="hero-contact">
+    <a href="tel:+917855970778">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.68A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+      +91-7855970778
+    </a>
+    <a href="mailto:lingaraj.shivam@gmail.com">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      lingaraj.shivam@gmail.com
+    </a>
+    <a href="#">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      Bhubaneswar, Odisha
+    </a>
+    <a href="https://linkedin.com/in/lingaraj-ojha9242a911b" target="_blank">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+      LinkedIn
+    </a>
   </div>
 </div>
 
-<!-- DASHBOARD -->
-<div id="pg-dashboard" class="page active">
-  <div class="welcome-banner">
-    <div class="wb-badge">SJ</div>
-    <div class="wb-text">
-      <h2>Welcome, Shiv!</h2>
-      <p>SJ Motors Material Registry — SAP Integration Portal &nbsp;&#128640;</p>
+<!-- HOME PAGE -->
+<div id="pg-home" class="page active">
+  <div class="section">
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-num">6+</div><div class="stat-lbl">Years Experience</div></div>
+      <div class="stat-box"><div class="stat-num">3</div><div class="stat-lbl">SAP Projects</div></div>
+      <div class="stat-box"><div class="stat-num">7</div><div class="stat-lbl">Companies</div></div>
+      <div class="stat-box"><div class="stat-num">S/4</div><div class="stat-lbl">HANA Certified</div></div>
     </div>
-    <div class="wb-actions">
-      <button class="wb-btn outline" onclick="showPage('materials')">View Materials</button>
-      <button class="wb-btn" onclick="showPage('register')">+ Register New</button>
-    </div>
-  </div>
 
-  <div class="page-title">Material Registry Overview</div>
-  <div class="page-sub">Legacy material migration status &amp; SAP synchronisation health</div>
+    <div class="sec-title">Professional Summary</div>
+    <div class="summary-card">
+      <p>SAP MM Consultant with over 6+ years of experience in procurement, inventory control, and loss prevention, including 4+ years of hands-on experience with 1 rollover implementation project and 2 SAP MM support projects.</p>
+      <p>Skilled in SAP MM module, S/4HANA, procurement analytics, and SAP Fiori for end-to-end procurement and inventory management processes.</p>
+      <p>Proven expertise in process improvement, GR/IR management, compliance, and vendor coordination across multiple business units.</p>
+    </div>
 
-  <div class="stats-row">
-    <div class="stat-card">
-      <div class="stat-label">Total Materials</div>
-      <div class="stat-num blue" id="s-total">247</div>
-      <div class="stat-note">Registered in portal</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">Synced to SAP</div>
-      <div class="stat-num green" id="s-synced">198</div>
-      <div class="prog-row"><div class="prog-bar"><div class="prog-fill" id="prog" style="width:80%"></div></div><span id="prog-pct" style="font-size:11px;color:var(--muted)">80%</span></div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">Pending Sync</div>
-      <div class="stat-num amber" id="s-pending">36</div>
-      <div class="stat-note">Awaiting SAP push</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">Sync Errors</div>
-      <div class="stat-num red" id="s-errors">13</div>
-      <div class="stat-note">Requires attention</div>
-    </div>
-  </div>
-
-  <div class="table-card">
-    <table>
-      <thead><tr>
-        <th style="width:130px">Material No.</th>
-        <th style="width:120px">Legacy No.</th>
-        <th>Description</th>
-        <th style="width:80px">Type</th>
-        <th style="width:65px">Plant</th>
-        <th style="width:90px">Status</th>
-        <th style="width:120px">Actions</th>
-      </tr></thead>
-      <tbody id="dash-tbody"></tbody>
-    </table>
-  </div>
-</div>
-
-<!-- MATERIALS -->
-<div id="pg-materials" class="page">
-  <div class="page-title">Material List</div>
-  <div class="page-sub">All registered materials with legacy number mapping</div>
-  <div class="toolbar">
-    <div class="search-wrap">
-      <svg class="srch-icon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 16 16"><circle cx="6.5" cy="6.5" r="4.5"/><line x1="10" y1="10" x2="14" y2="14"/></svg>
-      <input type="text" id="search" placeholder="Search material, legacy no., description..." oninput="filterTable()">
-    </div>
-    <select class="filter" id="f-status" onchange="filterTable()">
-      <option value="">All Status</option>
-      <option>Synced</option><option>Pending</option><option>Failed</option><option>Draft</option>
-    </select>
-    <select class="filter" id="f-type" onchange="filterTable()">
-      <option value="">All Types</option>
-      <option>FERT</option><option>HALB</option><option>ROH</option><option>HIBE</option>
-    </select>
-    <button class="btn-primary" onclick="showPage('register')">+ Register</button>
-    <button class="btn-outline" onclick="syncAll()">Sync All Pending</button>
-  </div>
-  <div class="table-card">
-    <table>
-      <thead><tr>
-        <th style="width:130px">Material No.</th>
-        <th style="width:120px">Legacy No.</th>
-        <th>Description</th>
-        <th style="width:80px">Type</th>
-        <th style="width:65px">Plant</th>
-        <th style="width:90px">Status</th>
-        <th style="width:120px">Actions</th>
-      </tr></thead>
-      <tbody id="mat-tbody"></tbody>
-    </table>
-  </div>
-</div>
-
-<!-- REGISTER -->
-<div id="pg-register" class="page">
-  <div class="page-title">Register New Material</div>
-  <div class="page-sub">Material will be auto-created in SAP via BAPI_MATERIAL_SAVEDATA on submission</div>
-  <div style="max-width:680px">
-    <div class="form-card">
-      <div class="fsec" style="margin-top:0">Legacy Identification</div>
-      <div class="form-grid">
-        <div class="fg"><label>Legacy Material Number *</label><input type="text" id="f-legacy" placeholder="e.g. SJ-ENG-00142"></div>
-        <div class="fg"><label>SAP Material Number</label><input type="text" id="f-matno" placeholder="Auto-generated if blank"></div>
-      </div>
-      <div class="fsec">Material Details</div>
-      <div class="form-grid">
-        <div class="fg full"><label>Material Description *</label><input type="text" id="f-desc" placeholder="Short description (max 40 chars for SAP)"></div>
-        <div class="fg"><label>Material Type *</label>
-          <select id="f-type">
-            <option value="">Select type...</option>
-            <option value="FERT">FERT – Finished Product</option>
-            <option value="HALB">HALB – Semi-Finished</option>
-            <option value="ROH">ROH – Raw Material</option>
-            <option value="HIBE">HIBE – Operating Supplies</option>
-            <option value="VERP">VERP – Packaging</option>
-          </select>
-        </div>
-        <div class="fg"><label>Industry Sector</label>
-          <select id="f-sector"><option value="M">M – Mechanical Engineering</option><option value="A">A – Plant Engineering</option></select>
-        </div>
-        <div class="fg"><label>Base Unit of Measure *</label>
-          <select id="f-uom"><option value="EA">EA – Each</option><option value="KG">KG – Kilogram</option><option value="L">L – Litre</option><option value="SET">SET – Set</option><option value="PCE">PCE – Piece</option></select>
-        </div>
-        <div class="fg"><label>Plant Code *</label>
-          <select id="f-plant"><option value="1000">1000 – Main Plant</option><option value="1100">1100 – Assembly Plant A</option><option value="1200">1200 – Assembly Plant B</option><option value="2000">2000 – Spare Parts Depot</option></select>
-        </div>
-        <div class="fg"><label>Material Group</label><input type="text" id="f-grp" placeholder="e.g. 001"></div>
-        <div class="fg"><label>Weight (kg)</label><input type="number" id="f-weight" placeholder="0.000" step="0.001"></div>
-        <div class="fg full"><label>Internal Notes</label><textarea id="f-notes" placeholder="Notes for internal reference only"></textarea></div>
-      </div>
-      <div class="fsec">SAP Push Options</div>
-      <div class="form-grid">
-        <div class="fg"><label>Sync Mode</label>
-          <select id="f-mode"><option value="immediate">Immediate – Push to SAP now</option><option value="batch">Batch – Include in next sync</option><option value="draft">Draft – Save locally only</option></select>
-        </div>
-        <div class="fg"><label>BAPI Method</label>
-          <select><option>BAPI_MATERIAL_SAVEDATA</option><option>IDoc MATMAS05</option></select>
-        </div>
-      </div>
-    </div>
-    <div style="display:flex;gap:10px;align-items:center">
-      <button class="btn-primary" onclick="submitMaterial()">Submit &amp; Push to SAP</button>
-      <button class="btn-outline" onclick="saveDraft()">Save as Draft</button>
-    </div>
-    <div class="api-log" id="reg-log"></div>
-  </div>
-</div>
-
-<!-- SAP CONFIG -->
-<div id="pg-config" class="page">
-  <div class="page-title">SAP Configuration</div>
-  <div class="page-sub">RFC connection settings and field mapping</div>
-  <div style="max-width:680px">
-    <div class="cfg-card">
-      <h3>SAP Connection</h3>
-      <div class="form-grid">
-        <div class="fg"><label>SAP Host</label><input type="text" value="sap-ecc.sjmotors.internal"></div>
-        <div class="fg"><label>System Number</label><input type="text" value="00"></div>
-        <div class="fg"><label>Client</label><input type="text" value="100"></div>
-        <div class="fg"><label>RFC User</label><input type="text" value="RFC_SJPORTAL"></div>
-        <div class="fg"><label>Password</label><input type="password" value="••••••••••"></div>
-        <div class="fg"><label>Connection Type</label><select><option>Direct RFC (pyrfc)</option><option>SAP REST Gateway</option><option>IDoc SFTP</option></select></div>
-      </div>
-      <div style="margin-top:1rem;display:flex;gap:10px">
-        <button class="btn-primary" onclick="testConn()">Test Connection</button>
-        <button class="btn-outline">Save Config</button>
-      </div>
-    </div>
-    <div class="cfg-card">
-      <h3>Field Mapping (Portal → SAP BAPI)</h3>
-      <div class="table-card">
-        <table>
-          <thead><tr><th>Portal Field</th><th>SAP Parameter</th><th>Structure</th><th>Required</th></tr></thead>
-          <tbody>
-            <tr><td class="mono">legacy_number</td><td class="mono">OLD_MAT_NO</td><td class="mono">CLIENTDATA</td><td><span class="badge b-synced">Yes</span></td></tr>
-            <tr><td class="mono">description</td><td class="mono">MATL_DESC</td><td class="mono">MAKTDATA</td><td><span class="badge b-synced">Yes</span></td></tr>
-            <tr><td class="mono">material_type</td><td class="mono">MATL_TYPE</td><td class="mono">HEADDATA</td><td><span class="badge b-synced">Yes</span></td></tr>
-            <tr><td class="mono">base_uom</td><td class="mono">BASE_UOM</td><td class="mono">CLIENTDATA</td><td><span class="badge b-synced">Yes</span></td></tr>
-            <tr><td class="mono">plant</td><td class="mono">PLANT</td><td class="mono">PLANTDATA</td><td><span class="badge b-pending">Optional</span></td></tr>
-            <tr><td class="mono">weight</td><td class="mono">GROSS_WT</td><td class="mono">CLIENTDATA</td><td><span class="badge b-draft">No</span></td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-    <div class="cfg-card">
-      <h3>Live SAP Log</h3>
-      <div class="api-log" style="display:block;min-height:120px" id="sap-log">
-        <div class="log-row"><span class="lt">09:41:03</span><span class="lok">[OK]</span><span class="lmsg">&nbsp;RFC connection established — SAP ECC 6.0 EHP8</span></div>
-        <div class="log-row"><span class="lt">09:41:05</span><span class="linf">[INFO]</span><span class="lmsg">&nbsp;BAPI_MATERIAL_SAVEDATA available — function module OK</span></div>
-        <div class="log-row"><span class="lt">09:58:12</span><span class="lok">[OK]</span><span class="lmsg">&nbsp;Material 1000-ENG-0041 created — SAP MN: 000000001041</span></div>
-        <div class="log-row"><span class="lt">10:02:55</span><span class="lerr">[ERR]</span><span class="lmsg">&nbsp;Material 1000-SPR-0091 — MATL_TYPE HALB not allowed in plant 2000</span></div>
-        <div class="log-row"><span class="lt">10:15:30</span><span class="lok">[OK]</span><span class="lmsg">&nbsp;Batch sync complete — 12 materials pushed, 1 error</span></div>
-      </div>
+    <br>
+    <div class="sec-title">Core Competencies</div>
+    <div class="pills">
+      <span class="pill">Material Management</span>
+      <span class="pill">Inventory Management</span>
+      <span class="pill">Supplier &amp; Vendor Management</span>
+      <span class="pill">Fraud Analysis</span>
+      <span class="pill">Shrinkage Control</span>
+      <span class="pill">Process Excellence</span>
+      <span class="pill">SAP MM Tools</span>
+      <span class="pill">Business Process Analysis</span>
+      <span class="pill">Procurement Management</span>
+      <span class="pill">GR/IR Management</span>
+      <span class="pill">Loss Prevention</span>
+      <span class="pill">Audit &amp; Compliance</span>
     </div>
   </div>
 </div>
 
-<!-- MODAL -->
-<div id="modal-bg" class="modal-bg">
-  <div class="modal">
-    <div class="modal-head">
-      <h2 id="modal-title">Material Detail</h2>
-      <button class="modal-x" onclick="closeModal()">×</button>
+<!-- EXPERIENCE PAGE -->
+<div id="pg-experience" class="page">
+  <div class="section">
+    <div class="sec-title">Professional Experience</div>
+
+    <div class="exp-item">
+      <div class="exp-header">
+        <div class="exp-role">SAP MM Consultant</div>
+        <span class="exp-date">Apr 2025 – Present</span>
+      </div>
+      <div class="exp-company">MCL | Odisha</div>
+      <ul class="exp-bullets">
+        <li>Supported daily SAP MM issue resolution and executed necessary process/workflow adjustments in line with client requirements.</li>
+        <li>Prepared Functional Specifications, conducted testing (Unit, Integration, UAT), and supported process improvements and audit compliance.</li>
+        <li>Collaborated with cross-functional teams, gathering requirements, performing root-cause analysis, and ensuring smooth end-to-end procurement and inventory operations.</li>
+      </ul>
     </div>
-    <div class="modal-body" id="modal-body"></div>
-    <div class="modal-foot">
-      <span class="modal-note">Via BAPI_MATERIAL_SAVEDATA</span>
-      <button class="btn-outline" onclick="closeModal()">Close</button>
-      <button class="btn-primary" id="modal-sync">Push to SAP</button>
+
+    <div class="exp-item">
+      <div class="exp-header">
+        <div class="exp-role">Assistant Manager</div>
+        <span class="exp-date">Aug 2024 – Nov 2024</span>
+      </div>
+      <div class="exp-company">Vedanta Ltd. | Odisha</div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-header">
+        <div class="exp-role">Manager – Inventory Accuracy &amp; Control / Loss Prevention</div>
+        <span class="exp-date">Sep 2022 – Jul 2024</span>
+      </div>
+      <div class="exp-company">Reliance Retail Ltd. | Odisha</div>
+      <ul class="exp-bullets">
+        <li>Conducted SAP-based stock audits &amp; vendor evaluations and performed root cause analysis for prevention.</li>
+        <li>Led fraud analysis and implemented inventory process controls.</li>
+        <li>Reviewed inventory requirements to assess if procurement aligns with demand forecasts; identified excess, obsolete, or low-turnover inventory.</li>
+        <li>Prepared comprehensive audit reports highlighting gaps, risks, and areas for improvement.</li>
+      </ul>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-header">
+        <div class="exp-role">SAP MM Support Consultant</div>
+        <span class="exp-date">Sep 2021 – Aug 2022</span>
+      </div>
+      <div class="exp-company">Docon Technologies Pvt. Ltd. | Odisha &amp; Chennai</div>
+      <ul class="exp-bullets">
+        <li>Worked on tickets based on priority; monitored L1/L2 level tickets and followed up for closure using HPSM within SLA.</li>
+        <li>Supported end-to-end processes related to inventory management, procurement, vendor evaluation, and purchase requisitions/orders.</li>
+        <li>Drafted test cases, UATs, and user manuals.</li>
+        <li>Configured MM-Organization Structures, Material Type, Plant, Purchase Group, Material Group, Storage Location, and Inventory process.</li>
+        <li>Solved day-to-day issues related to PR, PO, SES, Stock Transfer, GRN, and Invoice Verification.</li>
+      </ul>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-header">
+        <div class="exp-role">SAP Support Executive</div>
+        <span class="exp-date">Mar 2021 – Sep 2021</span>
+      </div>
+      <div class="exp-company">Bazaar Retail Pvt. Ltd. | Odisha</div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-header">
+        <div class="exp-role">Procurement Executive</div>
+        <span class="exp-date">Dec 2018 – Jul 2020</span>
+      </div>
+      <div class="exp-company">Future Retail Ltd. | Jharkhand</div>
+      <ul class="exp-bullets">
+        <li>Sourced new suppliers and vendors; managed selection process based on price, quality, support, capacity, and reliability.</li>
+        <li>Created and maintained purchase requisitions, purchase orders, and inventory documents ensuring seamless retail operations.</li>
+        <li>Worked with relevant departments to manage inventory requirements.</li>
+      </ul>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-header">
+        <div class="exp-role">Inventory Manager</div>
+        <span class="exp-date">Dec 2017 – Dec 2018</span>
+      </div>
+      <div class="exp-company">Airplaza Retail Holdings Pvt Ltd. | Jharkhand</div>
+      <ul class="exp-bullets">
+        <li>Managed retail store operations focusing on inventory accuracy and procurement efficiency.</li>
+        <li>Created and maintained PRs, POs, and inventory documents while ensuring GRN and STO to optimise stock levels.</li>
+        <li>Prepared reports on inventory metrics, stock aging, and replenishment requirements.</li>
+      </ul>
     </div>
   </div>
 </div>
 
-<div class="toast" id="toast"></div>
+<!-- SKILLS PAGE -->
+<div id="pg-skills" class="page">
+  <div class="section">
+    <div class="sec-title">Technical Skills</div>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="skill-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+        <span class="skill-name">SAP S/4HANA MM</span>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg></div>
+        <span class="skill-name">SAP R/3</span>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+        <span class="skill-name">SAP Fiori</span>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
+        <span class="skill-name">Procurement Analytics</span>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+        <span class="skill-name">HPSM Ticketing</span>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div>
+        <span class="skill-name">Microsoft Office</span>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg></div>
+        <span class="skill-name">SharePoint</span>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+        <span class="skill-name">Inventory Audit Tools</span>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
+        <span class="skill-name">Tableau</span>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></div>
+        <span class="skill-name">Retail Management Systems</span>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93l-1.41 1.41M4.93 4.93l1.41 1.41M12 2v2M12 20v2M19.07 19.07l-1.41-1.41M4.93 19.07l1.41-1.41M2 12h2M20 12h2"/></svg></div>
+        <span class="skill-name">Configuration</span>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+        <span class="skill-name">SOLMAN Ticketing</span>
+      </div>
+    </div>
+
+    <br><br>
+    <div class="sec-title">SAP Configuration Skills</div>
+    <div class="pills">
+      <span class="pill">MM Org Structure</span>
+      <span class="pill">Material Master</span>
+      <span class="pill">Vendor Master</span>
+      <span class="pill">Purchase Info Records</span>
+      <span class="pill">Procure to Pay (PR→PO→GR→IR)</span>
+      <span class="pill">STO &amp; SES</span>
+      <span class="pill">S/4HANA Fiori Apps</span>
+      <span class="pill">Release Strategy</span>
+      <span class="pill">Source Determination</span>
+      <span class="pill">Pricing Procedure</span>
+      <span class="pill">FI &amp; SD Integration</span>
+      <span class="pill">SAP Activate Methodology</span>
+    </div>
+  </div>
+</div>
+
+<!-- EDUCATION PAGE -->
+<div id="pg-education" class="page">
+  <div class="section">
+    <div class="sec-title">Education</div>
+    <div class="edu-grid">
+      <div class="edu-card">
+        <div class="edu-degree">MBA – Marketing &amp; HR</div>
+        <div class="edu-school">Biju Patnaik University of Technology</div>
+        <span class="edu-year">2017</span>
+      </div>
+      <div class="edu-card">
+        <div class="edu-degree">Bachelor of Science in ITM</div>
+        <div class="edu-school">Govt Auto College, Rourkela</div>
+        <span class="edu-year">2014</span>
+      </div>
+    </div>
+
+    <br>
+    <div class="sec-title">Certifications</div>
+    <div class="edu-grid">
+      <div class="edu-card" style="border-left:4px solid var(--gold)">
+        <div class="edu-degree">SAP S/4HANA Sourcing &amp; Procurement</div>
+        <div class="edu-school">Aspire Techsoft Academy, Pune</div>
+        <span class="edu-year">2021</span>
+      </div>
+    </div>
+
+    <br>
+    <div class="sec-title">Internship</div>
+    <div class="exp-item">
+      <div class="exp-header">
+        <div class="exp-role">Summer Internship</div>
+        <span class="exp-date">Reliance Retail Limited</span>
+      </div>
+      <ul class="exp-bullets">
+        <li>Retail Management</li>
+        <li>Retail Operations</li>
+        <li>Retail Sales</li>
+        <li>Inventory Control</li>
+      </ul>
+    </div>
+
+    <br>
+    <div class="sec-title">Languages</div>
+    <div class="pills">
+      <span class="pill">English</span>
+      <span class="pill">Hindi</span>
+      <span class="pill">Odia</span>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT PAGE -->
+<div id="pg-contact" class="page">
+  <div class="section">
+    <div class="sec-title">Get In Touch</div>
+    <div class="contact-grid">
+      <div class="contact-card">
+        <div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.68A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg></div>
+        <div><div class="contact-label">Phone</div><div class="contact-val">+91-7855970778</div></div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+        <div><div class="contact-label">Email</div><div class="contact-val">lingaraj.shivam@gmail.com</div></div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+        <div><div class="contact-label">Location</div><div class="contact-val">Bhubaneswar, Odisha</div></div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></div>
+        <div><div class="contact-label">LinkedIn</div><div class="contact-val">lingaraj-ojha9242a911b</div></div>
+      </div>
+    </div>
+
+    <br>
+    <div class="sec-title">Personal Details</div>
+    <div class="contact-grid">
+      <div class="contact-card"><div><div class="contact-label">Gender</div><div class="contact-val">Male</div></div></div>
+      <div class="contact-card"><div><div class="contact-label">Marital Status</div><div class="contact-val">Single</div></div></div>
+      <div class="contact-card"><div><div class="contact-label">Nationality</div><div class="contact-val">Indian</div></div></div>
+      <div class="contact-card"><div><div class="contact-label">Date of Birth</div><div class="contact-val">14 January 1993</div></div></div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p><span>Lingaraj Ojha</span> &nbsp;|&nbsp; SAP MM Consultant &nbsp;|&nbsp; Inventory Accuracy &amp; Control Manager</p>
+  <p style="margin-top:6px">Bhubaneswar, Odisha &nbsp;|&nbsp; lingaraj.shivam@gmail.com</p>
+</footer>
 
 <script>
-const MATS = [
-  {id:1,matno:'1000-ENG-0001',legacy:'SJ-ENG-00001',desc:'Crankshaft Assembly 2.0L',type:'FERT',plant:'1000',status:'Synced',sapno:'000000001001',uom:'EA'},
-  {id:2,matno:'1000-ENG-0002',legacy:'SJ-ENG-00002',desc:'Cylinder Head Block',type:'FERT',plant:'1000',status:'Synced',sapno:'000000001002',uom:'EA'},
-  {id:3,matno:'1100-TRN-0011',legacy:'SJ-TRN-00011',desc:'Gearbox Housing 6-Speed',type:'HALB',plant:'1100',status:'Pending',sapno:'',uom:'EA'},
-  {id:4,matno:'1100-TRN-0012',legacy:'SJ-TRN-00012',desc:'Clutch Plate Set',type:'HIBE',plant:'1100',status:'Synced',sapno:'000000001012',uom:'SET'},
-  {id:5,matno:'1200-BDY-0031',legacy:'SJ-BDY-00031',desc:'Door Panel Left Front',type:'FERT',plant:'1200',status:'Failed',sapno:'',uom:'EA'},
-  {id:6,matno:'2000-SPR-0041',legacy:'SJ-SPR-00041',desc:'Engine Oil Filter 5W-30',type:'HIBE',plant:'2000',status:'Synced',sapno:'000000001041',uom:'EA'},
-  {id:7,matno:'2000-SPR-0042',legacy:'SJ-SPR-00042',desc:'Brake Pad Set Front Axle',type:'HIBE',plant:'2000',status:'Synced',sapno:'000000001042',uom:'SET'},
-  {id:8,matno:'1000-RAW-0051',legacy:'SJ-RAW-00051',desc:'Steel Sheet 2mm Cold Roll',type:'ROH',plant:'1000',status:'Pending',sapno:'',uom:'KG'},
-  {id:9,matno:'1100-ENG-0061',legacy:'SJ-ENG-00061',desc:'Timing Belt Kit 1.5L',type:'HIBE',plant:'1100',status:'Failed',sapno:'',uom:'EA'},
-  {id:10,matno:'1200-ELE-0071',legacy:'SJ-ELE-00071',desc:'ECU Module Main Controller',type:'HALB',plant:'1200',status:'Pending',sapno:'',uom:'EA'},
-  {id:11,matno:'1000-EXH-0081',legacy:'SJ-EXH-00081',desc:'Exhaust Manifold 4-Cyl',type:'FERT',plant:'1000',status:'Synced',sapno:'000000001081',uom:'EA'},
-  {id:12,matno:'2000-SPR-0091',legacy:'SJ-SPR-00091',desc:'Coolant Hose Upper',type:'HIBE',plant:'2000',status:'Draft',sapno:'',uom:'EA'},
-];
-let allMats = [...MATS]; let nextId = 13;
-
-function badge(s){const m={Synced:'b-synced',Pending:'b-pending',Failed:'b-failed',Draft:'b-draft'};return`<span class="badge ${m[s]||'b-draft'}">${s}</span>`}
-
-function renderRows(tbody,data){
-  if(!data.length){tbody.innerHTML=`<tr><td colspan="7" style="text-align:center;padding:2rem;color:var(--muted)">No materials found</td></tr>`;return}
-  tbody.innerHTML=data.map(m=>`<tr>
-    <td class="mono">${m.matno}</td>
-    <td class="mono">${m.legacy}</td>
-    <td title="${m.desc}">${m.desc}</td>
-    <td>${m.type}</td>
-    <td>${m.plant}</td>
-    <td>${badge(m.status)}</td>
-    <td><button class="act-btn" onclick="viewMat(${m.id})">View</button>${m.status!=='Synced'?`<button class="act-btn sync" onclick="syncMat(${m.id})">Sync</button>`:''}</td>
-  </tr>`).join('');
-}
-
-function refreshDash(){
-  const sy=allMats.filter(m=>m.status==='Synced').length;
-  const pe=allMats.filter(m=>m.status==='Pending').length;
-  const er=allMats.filter(m=>m.status==='Failed').length;
-  document.getElementById('s-total').textContent=allMats.length;
-  document.getElementById('s-synced').textContent=sy;
-  document.getElementById('s-pending').textContent=pe;
-  document.getElementById('s-errors').textContent=er;
-  const pct=Math.round(sy/allMats.length*100);
-  document.getElementById('prog').style.width=pct+'%';
-  document.getElementById('prog-pct').textContent=pct+'%';
-  renderRows(document.getElementById('dash-tbody'),allMats.slice(0,8));
-}
-
-function filterTable(){
-  const q=document.getElementById('search').value.toLowerCase();
-  const st=document.getElementById('f-status').value;
-  const ty=document.getElementById('f-type').value;
-  const f=allMats.filter(m=>(!q||m.matno.toLowerCase().includes(q)||m.legacy.toLowerCase().includes(q)||m.desc.toLowerCase().includes(q))&&(!st||m.status===st)&&(!ty||m.type===ty));
-  renderRows(document.getElementById('mat-tbody'),f);
-}
-
-function showPage(n){
+function showPage(name){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
-  document.getElementById('pg-'+n).classList.add('active');
-  const map={dashboard:0,materials:1,register:2,config:3};
-  document.querySelectorAll('.nav-btn')[map[n]].classList.add('active');
-  if(n==='materials')filterTable();
+  document.querySelectorAll('.nav-link').forEach(l=>l.classList.remove('active'));
+  document.getElementById('pg-'+name).classList.add('active');
+  event.target.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
 }
-
-function viewMat(id){
-  const m=allMats.find(x=>x.id===id);if(!m)return;
-  document.getElementById('modal-title').textContent=m.desc;
-  document.getElementById('modal-body').innerHTML=`
-    <div class="form-grid" style="gap:10px;margin-bottom:1rem">
-      <div><div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:3px">SAP Material No.</div><div class="mono">${m.sapno||'—'}</div></div>
-      <div><div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:3px">Legacy Number</div><div class="mono">${m.legacy}</div></div>
-      <div><div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:3px">Portal Material No.</div><div class="mono">${m.matno}</div></div>
-      <div><div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:3px">Type / Plant</div><div>${m.type} / ${m.plant}</div></div>
-      <div class="full"><div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:3px">Status</div><div>${badge(m.status)}</div></div>
-    </div>
-    <div style="font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);font-weight:600;margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid var(--border)">BAPI Payload Preview</div>
-    <div class="api-log" style="display:block;min-height:auto;font-size:11px;color:#e2e8f0;line-height:1.7">
-{<br>&nbsp;&nbsp;"HEADDATA":{"MATERIAL":"${m.sapno||m.matno}","MATL_TYPE":"${m.type}","IND_SECTOR":"M"},<br>
-&nbsp;&nbsp;"CLIENTDATA":{"BASE_UOM":"${m.uom}","OLD_MAT_NO":"${m.legacy}"},<br>
-&nbsp;&nbsp;"PLANTDATA":{"PLANT":"${m.plant}"}<br>}
-    </div>`;
-  document.getElementById('modal-sync').onclick=()=>{syncMat(id);closeModal()};
-  document.getElementById('modal-bg').classList.add('open');
-}
-
-function closeModal(){document.getElementById('modal-bg').classList.remove('open')}
-
-function syncMat(id){
-  const m=allMats.find(x=>x.id===id);if(!m)return;
-  showToast('info','Pushing '+m.matno+' to SAP...');
-  setTimeout(()=>{
-    const ok=Math.random()>0.2;
-    m.status=ok?'Synced':'Failed';
-    if(ok)m.sapno='0000000'+String(10000+id).slice(1);
-    showToast(ok?'success':'error',ok?m.matno+' created in SAP: '+m.sapno:'SAP error: MATL_TYPE not allowed in plant '+m.plant);
-    refreshDash();filterTable();
-  },1200);
-}
-
-function syncAll(){
-  const pe=allMats.filter(m=>m.status==='Pending');
-  if(!pe.length){showToast('info','No pending materials');return}
-  showToast('info','Syncing '+pe.length+' materials...');
-  let i=0;
-  const run=()=>{if(i>=pe.length){showToast('success','Batch sync complete');refreshDash();filterTable();return}
-    const m=pe[i++];const ok=Math.random()>0.15;m.status=ok?'Synced':'Failed';if(ok)m.sapno='0000000'+String(10000+m.id).slice(1);setTimeout(run,350)};run();
-}
-
-function submitMaterial(){
-  const leg=document.getElementById('f-legacy').value.trim();
-  const dsc=document.getElementById('f-desc').value.trim();
-  const typ=document.getElementById('f-type').value;
-  const plt=document.getElementById('f-plant').value;
-  const uom=document.getElementById('f-uom').value;
-  const mode=document.getElementById('f-mode').value;
-  if(!leg||!dsc||!typ){showToast('error','Fill in all required fields');return}
-  const matno=plt+'-'+typ+'-'+String(1000+nextId).slice(1);
-  const log=document.getElementById('reg-log');
-  log.style.display='block';log.innerHTML='';
-  const addLog=(lv,msg)=>{
-    const t=new Date().toTimeString().slice(0,8);
-    const cls={OK:'lok',ERR:'lerr',INFO:'linf'}[lv];
-    log.innerHTML+=`<div class="log-row"><span class="lt">${t}</span><span class="${cls}">[${lv}]</span><span class="lmsg">&nbsp;${msg}</span></div>`;
-    log.scrollTop=log.scrollHeight;
-  };
-  addLog('INFO','Validating form data...');
-  setTimeout(()=>addLog('INFO','Building BAPI payload for '+matno),300);
-  setTimeout(()=>addLog('INFO','Calling BAPI_MATERIAL_SAVEDATA on SAP ECC...'),700);
-  setTimeout(()=>{
-    const st=mode==='draft'?'Draft':mode==='batch'?'Pending':'Synced';
-    const sn=st==='Synced'?'0000000'+String(10000+nextId).slice(1):'';
-    if(st==='Synced')addLog('OK','SAP material created: '+sn);
-    else if(st==='Pending')addLog('INFO','Queued for next batch sync');
-    else addLog('INFO','Saved as draft — not pushed to SAP');
-    allMats.unshift({id:nextId++,matno,legacy:leg,desc:dsc,type:typ,plant:plt,status:st,sapno:sn,uom});
-    refreshDash();
-    showToast('success','Material '+matno+' registered!');
-    document.getElementById('f-legacy').value='';
-    document.getElementById('f-desc').value='';
-    document.getElementById('f-type').value='';
-  },1400);
-}
-
-function saveDraft(){document.getElementById('f-mode').value='draft';submitMaterial()}
-function testConn(){showToast('info','Testing RFC connection...');setTimeout(()=>showToast('success','Connection OK — SAP ECC 6.0 EHP8'),1200)}
-
-function showToast(type,msg){
-  const t=document.getElementById('toast');
-  t.textContent=msg;t.className='toast '+type+' show';
-  setTimeout(()=>t.classList.remove('show'),3200);
-}
-
-refreshDash();filterTable();
 </script>
 </body>
 </html>
