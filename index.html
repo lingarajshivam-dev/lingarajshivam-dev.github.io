@@ -1,25 +1,530 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>SJ Website</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SJ Motors — Material Registry Portal</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  :root{--brand:#1A3A6B;--brand-dark:#0f2347;--gold:#E8A020;--steel:#12233F;--light:#E8EEF7;--gray:#f5f6f8;--border:#DDE3EC;--text:#1a1a2e;--muted:#64748b}
+  body{font-family:'Barlow',sans-serif;background:#f0f2f7;color:var(--text);min-height:100vh}
+
+  /* HEADER */
+  .header{background:var(--steel);padding:0 2rem;display:flex;align-items:stretch;border-bottom:3px solid var(--gold);position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,0.3)}
+  .logo-wrap{display:flex;align-items:center;gap:12px;padding:14px 2rem 14px 0;border-right:1px solid rgba(255,255,255,0.1);margin-right:2rem}
+  .logo-badge{width:40px;height:40px;background:var(--gold);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;color:#fff;letter-spacing:1px}
+  .logo-text h1{font-family:'Barlow Condensed',sans-serif;font-size:19px;font-weight:700;color:#fff;letter-spacing:1px;line-height:1.2}
+  .logo-text p{font-size:10px;color:rgba(255,255,255,0.5);letter-spacing:2px;text-transform:uppercase}
+  nav{display:flex;align-items:center;gap:4px;flex:1}
+  .nav-btn{padding:8px 16px;border-radius:6px;border:none;font-family:'Barlow',sans-serif;font-size:13px;font-weight:500;cursor:pointer;background:transparent;color:rgba(255,255,255,0.6);transition:all 0.15s;letter-spacing:0.3px}
+  .nav-btn:hover{background:rgba(255,255,255,0.08);color:#fff}
+  .nav-btn.active{background:var(--gold);color:#fff}
+  .sap-status{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:20px;padding:5px 14px;font-size:12px;color:rgba(255,255,255,0.7);margin-left:auto}
+  .dot{width:7px;height:7px;border-radius:50%;background:#4ade80;animation:pulse 2s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+
+  /* PAGES */
+  .page{display:none;padding:2rem;max-width:1100px;margin:0 auto}
+  .page.active{display:block}
+  .page-title{font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:700;margin-bottom:4px;color:var(--text)}
+  .page-sub{font-size:13px;color:var(--muted);margin-bottom:2rem}
+
+  /* STATS */
+  .stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:2rem}
+  .stat-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:1rem 1.25rem}
+  .stat-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px}
+  .stat-num{font-family:'Barlow Condensed',sans-serif;font-size:30px;font-weight:700}
+  .blue{color:var(--brand)} .green{color:#16a34a} .amber{color:#b45309} .red{color:#dc2626}
+  .stat-note{font-size:11px;color:var(--muted);margin-top:4px}
+  .prog-row{display:flex;align-items:center;gap:8px;margin-top:6px}
+  .prog-bar{flex:1;height:5px;background:#e2e8f0;border-radius:3px;overflow:hidden}
+  .prog-fill{height:100%;background:var(--gold);border-radius:3px}
+
+  /* TABLE */
+  .toolbar{display:flex;gap:10px;align-items:center;margin-bottom:1rem}
+  .search-wrap{position:relative;flex:1}
+  .search-wrap input{width:100%;padding:8px 12px 8px 36px;border:1px solid var(--border);border-radius:8px;font-size:13px;font-family:'Barlow',sans-serif;background:#fff;color:var(--text)}
+  .search-wrap input:focus{outline:none;border-color:var(--brand)}
+  .srch-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--muted);pointer-events:none}
+  select.filter{padding:8px 12px;border:1px solid var(--border);border-radius:8px;font-family:'Barlow',sans-serif;font-size:13px;background:#fff;color:var(--text);cursor:pointer}
+  select.filter:focus{outline:none}
+  .btn-primary{background:var(--brand);color:#fff;border:none;padding:8px 18px;border-radius:8px;font-family:'Barlow',sans-serif;font-size:13px;font-weight:500;cursor:pointer;white-space:nowrap;transition:background 0.15s}
+  .btn-primary:hover{background:var(--brand-dark)}
+  .btn-outline{background:#fff;color:var(--text);border:1px solid var(--border);padding:8px 18px;border-radius:8px;font-family:'Barlow',sans-serif;font-size:13px;font-weight:500;cursor:pointer;transition:background 0.15s}
+  .btn-outline:hover{background:var(--gray)}
+
+  .table-card{background:#fff;border:1px solid var(--border);border-radius:12px;overflow:hidden}
+  table{width:100%;border-collapse:collapse;font-size:13px;table-layout:fixed}
+  thead tr{background:var(--gray)}
+  th{padding:10px 14px;text-align:left;font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--border);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  td{padding:11px 14px;border-bottom:1px solid var(--border);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;vertical-align:middle}
+  tr:last-child td{border-bottom:none}
+  tr:hover td{background:#fafbff}
+  .mono{font-family:'Courier New',monospace;font-size:12px}
+
+  /* BADGES */
+  .badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:500}
+  .b-synced{background:#dcfce7;color:#166534}
+  .b-pending{background:#fef9c3;color:#854d0e}
+  .b-failed{background:#fee2e2;color:#991b1b}
+  .b-draft{background:#f1f5f9;color:#64748b;border:1px solid var(--border)}
+
+  .act-btn{background:none;border:1px solid var(--border);border-radius:5px;padding:4px 10px;font-size:12px;cursor:pointer;font-family:'Barlow',sans-serif;margin-right:4px;transition:background 0.1s}
+  .act-btn:hover{background:var(--gray)}
+  .act-btn.sync{color:#1d6db5;border-color:#93c5fd}
+  .act-btn.sync:hover{background:#eff6ff}
+
+  /* FORM */
+  .form-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:1.5rem;margin-bottom:1.25rem}
+  .form-card h3{font-family:'Barlow Condensed',sans-serif;font-size:17px;font-weight:700;color:var(--text);margin-bottom:1rem}
+  .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+  .fg{display:flex;flex-direction:column;gap:5px}
+  .fg.full{grid-column:1/-1}
+  .fg label{font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.8px}
+  .fg input,.fg select,.fg textarea{padding:8px 12px;border:1px solid var(--border);border-radius:8px;font-family:'Barlow',sans-serif;font-size:13px;color:var(--text);background:#fff}
+  .fg input:focus,.fg select:focus,.fg textarea:focus{outline:none;border-color:var(--brand)}
+  .fg textarea{resize:vertical;min-height:70px}
+  .fsec{font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);font-weight:600;margin:1.25rem 0 0.75rem;padding-bottom:6px;border-bottom:1px solid var(--border)}
+
+  /* API LOG */
+  .api-log{background:var(--steel);border-radius:10px;padding:1rem 1.25rem;font-family:'Courier New',monospace;font-size:12px;line-height:1.9;min-height:100px;max-height:200px;overflow-y:auto;margin-top:1rem;display:none}
+  .log-row{display:flex;gap:12px}
+  .lt{color:#64748b;min-width:78px}
+  .lok{color:#4ade80} .lerr{color:#f87171} .linf{color:#60a5fa}
+  .lmsg{color:#e2e8f0}
+
+  /* CONFIG */
+  .cfg-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:1.25rem;margin-bottom:1rem}
+  .cfg-card h3{font-family:'Barlow Condensed',sans-serif;font-size:17px;font-weight:700;margin-bottom:1rem}
+
+  /* MODAL */
+  .modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:200;align-items:center;justify-content:center}
+  .modal-bg.open{display:flex}
+  .modal{background:#fff;border-radius:14px;width:560px;max-width:95vw;border:1px solid var(--border);max-height:88vh;overflow-y:auto}
+  .modal-head{padding:1.25rem 1.5rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:#fff}
+  .modal-head h2{font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:700}
+  .modal-x{background:none;border:none;cursor:pointer;font-size:22px;color:var(--muted);padding:2px 6px;border-radius:4px;line-height:1}
+  .modal-x:hover{background:var(--gray)}
+  .modal-body{padding:1.5rem}
+  .modal-foot{padding:1rem 1.5rem;border-top:1px solid var(--border);display:flex;gap:10px;justify-content:flex-end;align-items:center}
+  .modal-note{font-size:11px;color:var(--muted);margin-right:auto}
+
+  /* TOAST */
+  .toast{position:fixed;bottom:2rem;right:2rem;z-index:300;background:var(--steel);color:#fff;padding:12px 20px;border-radius:10px;font-size:13px;opacity:0;transform:translateY(10px);transition:all 0.3s;max-width:340px;pointer-events:none}
+  .toast.show{opacity:1;transform:translateY(0)}
+  .toast.success{border-left:4px solid #4ade80}
+  .toast.error{border-left:4px solid #f87171}
+  .toast.info{border-left:4px solid #60a5fa}
+
+  /* WELCOME BANNER */
+  .welcome-banner{background:var(--brand);border-radius:14px;padding:2rem;margin-bottom:2rem;display:flex;align-items:center;gap:2rem;color:#fff}
+  .wb-badge{width:64px;height:64px;background:var(--gold);border-radius:12px;display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:700;color:#fff;flex-shrink:0}
+  .wb-text h2{font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:700;letter-spacing:0.5px}
+  .wb-text p{font-size:14px;color:rgba(255,255,255,0.7);margin-top:4px}
+  .wb-actions{margin-left:auto;display:flex;gap:10px;flex-shrink:0}
+  .wb-btn{background:var(--gold);color:#fff;border:none;padding:10px 22px;border-radius:8px;font-family:'Barlow',sans-serif;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap}
+  .wb-btn.outline{background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.3)}
+
+  @media(max-width:720px){
+    .stats-row{grid-template-columns:1fr 1fr}
+    .form-grid{grid-template-columns:1fr}
+    .fg.full{grid-column:1}
+    .wb-actions{display:none}
+    .header{flex-wrap:wrap;padding:0 1rem}
+    nav{overflow-x:auto}
+    .page{padding:1rem}
+  }
+</style>
 </head>
 <body>
-  <h1>Welcome Shiv 🚀</h1>
-  <h2>My API Test Website</h2>
 
-  <button onclick="getData()">Call API</button>
+<div class="header">
+  <div class="logo-wrap">
+    <div class="logo-badge">SJ</div>
+    <div class="logo-text">
+      <h1>SJ Motors</h1>
+      <p>Material Registry Portal</p>
+    </div>
+  </div>
+  <nav>
+    <button class="nav-btn active" onclick="showPage('dashboard')">Dashboard</button>
+    <button class="nav-btn" onclick="showPage('materials')">Materials</button>
+    <button class="nav-btn" onclick="showPage('register')">Register New</button>
+    <button class="nav-btn" onclick="showPage('config')">SAP Config</button>
+  </nav>
+  <div class="sap-status">
+    <div class="dot"></div>
+    SAP ECC Connected
+  </div>
+</div>
 
-  <pre id="output"></pre>
+<!-- DASHBOARD -->
+<div id="pg-dashboard" class="page active">
+  <div class="welcome-banner">
+    <div class="wb-badge">SJ</div>
+    <div class="wb-text">
+      <h2>Welcome, Shiv!</h2>
+      <p>SJ Motors Material Registry — SAP Integration Portal &nbsp;&#128640;</p>
+    </div>
+    <div class="wb-actions">
+      <button class="wb-btn outline" onclick="showPage('materials')">View Materials</button>
+      <button class="wb-btn" onclick="showPage('register')">+ Register New</button>
+    </div>
+  </div>
 
-  <script>
-    function getData() {
-      fetch('https://jsonplaceholder.typicode.com/posts/1')
-        .then(res => res.json())
-        .then(data => {
-          document.getElementById('output').innerText =
-            JSON.stringify(data, null, 2);
-        });
-    }
-  </script>
+  <div class="page-title">Material Registry Overview</div>
+  <div class="page-sub">Legacy material migration status &amp; SAP synchronisation health</div>
+
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-label">Total Materials</div>
+      <div class="stat-num blue" id="s-total">247</div>
+      <div class="stat-note">Registered in portal</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Synced to SAP</div>
+      <div class="stat-num green" id="s-synced">198</div>
+      <div class="prog-row"><div class="prog-bar"><div class="prog-fill" id="prog" style="width:80%"></div></div><span id="prog-pct" style="font-size:11px;color:var(--muted)">80%</span></div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Pending Sync</div>
+      <div class="stat-num amber" id="s-pending">36</div>
+      <div class="stat-note">Awaiting SAP push</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Sync Errors</div>
+      <div class="stat-num red" id="s-errors">13</div>
+      <div class="stat-note">Requires attention</div>
+    </div>
+  </div>
+
+  <div class="table-card">
+    <table>
+      <thead><tr>
+        <th style="width:130px">Material No.</th>
+        <th style="width:120px">Legacy No.</th>
+        <th>Description</th>
+        <th style="width:80px">Type</th>
+        <th style="width:65px">Plant</th>
+        <th style="width:90px">Status</th>
+        <th style="width:120px">Actions</th>
+      </tr></thead>
+      <tbody id="dash-tbody"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- MATERIALS -->
+<div id="pg-materials" class="page">
+  <div class="page-title">Material List</div>
+  <div class="page-sub">All registered materials with legacy number mapping</div>
+  <div class="toolbar">
+    <div class="search-wrap">
+      <svg class="srch-icon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 16 16"><circle cx="6.5" cy="6.5" r="4.5"/><line x1="10" y1="10" x2="14" y2="14"/></svg>
+      <input type="text" id="search" placeholder="Search material, legacy no., description..." oninput="filterTable()">
+    </div>
+    <select class="filter" id="f-status" onchange="filterTable()">
+      <option value="">All Status</option>
+      <option>Synced</option><option>Pending</option><option>Failed</option><option>Draft</option>
+    </select>
+    <select class="filter" id="f-type" onchange="filterTable()">
+      <option value="">All Types</option>
+      <option>FERT</option><option>HALB</option><option>ROH</option><option>HIBE</option>
+    </select>
+    <button class="btn-primary" onclick="showPage('register')">+ Register</button>
+    <button class="btn-outline" onclick="syncAll()">Sync All Pending</button>
+  </div>
+  <div class="table-card">
+    <table>
+      <thead><tr>
+        <th style="width:130px">Material No.</th>
+        <th style="width:120px">Legacy No.</th>
+        <th>Description</th>
+        <th style="width:80px">Type</th>
+        <th style="width:65px">Plant</th>
+        <th style="width:90px">Status</th>
+        <th style="width:120px">Actions</th>
+      </tr></thead>
+      <tbody id="mat-tbody"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- REGISTER -->
+<div id="pg-register" class="page">
+  <div class="page-title">Register New Material</div>
+  <div class="page-sub">Material will be auto-created in SAP via BAPI_MATERIAL_SAVEDATA on submission</div>
+  <div style="max-width:680px">
+    <div class="form-card">
+      <div class="fsec" style="margin-top:0">Legacy Identification</div>
+      <div class="form-grid">
+        <div class="fg"><label>Legacy Material Number *</label><input type="text" id="f-legacy" placeholder="e.g. SJ-ENG-00142"></div>
+        <div class="fg"><label>SAP Material Number</label><input type="text" id="f-matno" placeholder="Auto-generated if blank"></div>
+      </div>
+      <div class="fsec">Material Details</div>
+      <div class="form-grid">
+        <div class="fg full"><label>Material Description *</label><input type="text" id="f-desc" placeholder="Short description (max 40 chars for SAP)"></div>
+        <div class="fg"><label>Material Type *</label>
+          <select id="f-type">
+            <option value="">Select type...</option>
+            <option value="FERT">FERT – Finished Product</option>
+            <option value="HALB">HALB – Semi-Finished</option>
+            <option value="ROH">ROH – Raw Material</option>
+            <option value="HIBE">HIBE – Operating Supplies</option>
+            <option value="VERP">VERP – Packaging</option>
+          </select>
+        </div>
+        <div class="fg"><label>Industry Sector</label>
+          <select id="f-sector"><option value="M">M – Mechanical Engineering</option><option value="A">A – Plant Engineering</option></select>
+        </div>
+        <div class="fg"><label>Base Unit of Measure *</label>
+          <select id="f-uom"><option value="EA">EA – Each</option><option value="KG">KG – Kilogram</option><option value="L">L – Litre</option><option value="SET">SET – Set</option><option value="PCE">PCE – Piece</option></select>
+        </div>
+        <div class="fg"><label>Plant Code *</label>
+          <select id="f-plant"><option value="1000">1000 – Main Plant</option><option value="1100">1100 – Assembly Plant A</option><option value="1200">1200 – Assembly Plant B</option><option value="2000">2000 – Spare Parts Depot</option></select>
+        </div>
+        <div class="fg"><label>Material Group</label><input type="text" id="f-grp" placeholder="e.g. 001"></div>
+        <div class="fg"><label>Weight (kg)</label><input type="number" id="f-weight" placeholder="0.000" step="0.001"></div>
+        <div class="fg full"><label>Internal Notes</label><textarea id="f-notes" placeholder="Notes for internal reference only"></textarea></div>
+      </div>
+      <div class="fsec">SAP Push Options</div>
+      <div class="form-grid">
+        <div class="fg"><label>Sync Mode</label>
+          <select id="f-mode"><option value="immediate">Immediate – Push to SAP now</option><option value="batch">Batch – Include in next sync</option><option value="draft">Draft – Save locally only</option></select>
+        </div>
+        <div class="fg"><label>BAPI Method</label>
+          <select><option>BAPI_MATERIAL_SAVEDATA</option><option>IDoc MATMAS05</option></select>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;gap:10px;align-items:center">
+      <button class="btn-primary" onclick="submitMaterial()">Submit &amp; Push to SAP</button>
+      <button class="btn-outline" onclick="saveDraft()">Save as Draft</button>
+    </div>
+    <div class="api-log" id="reg-log"></div>
+  </div>
+</div>
+
+<!-- SAP CONFIG -->
+<div id="pg-config" class="page">
+  <div class="page-title">SAP Configuration</div>
+  <div class="page-sub">RFC connection settings and field mapping</div>
+  <div style="max-width:680px">
+    <div class="cfg-card">
+      <h3>SAP Connection</h3>
+      <div class="form-grid">
+        <div class="fg"><label>SAP Host</label><input type="text" value="sap-ecc.sjmotors.internal"></div>
+        <div class="fg"><label>System Number</label><input type="text" value="00"></div>
+        <div class="fg"><label>Client</label><input type="text" value="100"></div>
+        <div class="fg"><label>RFC User</label><input type="text" value="RFC_SJPORTAL"></div>
+        <div class="fg"><label>Password</label><input type="password" value="••••••••••"></div>
+        <div class="fg"><label>Connection Type</label><select><option>Direct RFC (pyrfc)</option><option>SAP REST Gateway</option><option>IDoc SFTP</option></select></div>
+      </div>
+      <div style="margin-top:1rem;display:flex;gap:10px">
+        <button class="btn-primary" onclick="testConn()">Test Connection</button>
+        <button class="btn-outline">Save Config</button>
+      </div>
+    </div>
+    <div class="cfg-card">
+      <h3>Field Mapping (Portal → SAP BAPI)</h3>
+      <div class="table-card">
+        <table>
+          <thead><tr><th>Portal Field</th><th>SAP Parameter</th><th>Structure</th><th>Required</th></tr></thead>
+          <tbody>
+            <tr><td class="mono">legacy_number</td><td class="mono">OLD_MAT_NO</td><td class="mono">CLIENTDATA</td><td><span class="badge b-synced">Yes</span></td></tr>
+            <tr><td class="mono">description</td><td class="mono">MATL_DESC</td><td class="mono">MAKTDATA</td><td><span class="badge b-synced">Yes</span></td></tr>
+            <tr><td class="mono">material_type</td><td class="mono">MATL_TYPE</td><td class="mono">HEADDATA</td><td><span class="badge b-synced">Yes</span></td></tr>
+            <tr><td class="mono">base_uom</td><td class="mono">BASE_UOM</td><td class="mono">CLIENTDATA</td><td><span class="badge b-synced">Yes</span></td></tr>
+            <tr><td class="mono">plant</td><td class="mono">PLANT</td><td class="mono">PLANTDATA</td><td><span class="badge b-pending">Optional</span></td></tr>
+            <tr><td class="mono">weight</td><td class="mono">GROSS_WT</td><td class="mono">CLIENTDATA</td><td><span class="badge b-draft">No</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="cfg-card">
+      <h3>Live SAP Log</h3>
+      <div class="api-log" style="display:block;min-height:120px" id="sap-log">
+        <div class="log-row"><span class="lt">09:41:03</span><span class="lok">[OK]</span><span class="lmsg">&nbsp;RFC connection established — SAP ECC 6.0 EHP8</span></div>
+        <div class="log-row"><span class="lt">09:41:05</span><span class="linf">[INFO]</span><span class="lmsg">&nbsp;BAPI_MATERIAL_SAVEDATA available — function module OK</span></div>
+        <div class="log-row"><span class="lt">09:58:12</span><span class="lok">[OK]</span><span class="lmsg">&nbsp;Material 1000-ENG-0041 created — SAP MN: 000000001041</span></div>
+        <div class="log-row"><span class="lt">10:02:55</span><span class="lerr">[ERR]</span><span class="lmsg">&nbsp;Material 1000-SPR-0091 — MATL_TYPE HALB not allowed in plant 2000</span></div>
+        <div class="log-row"><span class="lt">10:15:30</span><span class="lok">[OK]</span><span class="lmsg">&nbsp;Batch sync complete — 12 materials pushed, 1 error</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div id="modal-bg" class="modal-bg">
+  <div class="modal">
+    <div class="modal-head">
+      <h2 id="modal-title">Material Detail</h2>
+      <button class="modal-x" onclick="closeModal()">×</button>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+    <div class="modal-foot">
+      <span class="modal-note">Via BAPI_MATERIAL_SAVEDATA</span>
+      <button class="btn-outline" onclick="closeModal()">Close</button>
+      <button class="btn-primary" id="modal-sync">Push to SAP</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const MATS = [
+  {id:1,matno:'1000-ENG-0001',legacy:'SJ-ENG-00001',desc:'Crankshaft Assembly 2.0L',type:'FERT',plant:'1000',status:'Synced',sapno:'000000001001',uom:'EA'},
+  {id:2,matno:'1000-ENG-0002',legacy:'SJ-ENG-00002',desc:'Cylinder Head Block',type:'FERT',plant:'1000',status:'Synced',sapno:'000000001002',uom:'EA'},
+  {id:3,matno:'1100-TRN-0011',legacy:'SJ-TRN-00011',desc:'Gearbox Housing 6-Speed',type:'HALB',plant:'1100',status:'Pending',sapno:'',uom:'EA'},
+  {id:4,matno:'1100-TRN-0012',legacy:'SJ-TRN-00012',desc:'Clutch Plate Set',type:'HIBE',plant:'1100',status:'Synced',sapno:'000000001012',uom:'SET'},
+  {id:5,matno:'1200-BDY-0031',legacy:'SJ-BDY-00031',desc:'Door Panel Left Front',type:'FERT',plant:'1200',status:'Failed',sapno:'',uom:'EA'},
+  {id:6,matno:'2000-SPR-0041',legacy:'SJ-SPR-00041',desc:'Engine Oil Filter 5W-30',type:'HIBE',plant:'2000',status:'Synced',sapno:'000000001041',uom:'EA'},
+  {id:7,matno:'2000-SPR-0042',legacy:'SJ-SPR-00042',desc:'Brake Pad Set Front Axle',type:'HIBE',plant:'2000',status:'Synced',sapno:'000000001042',uom:'SET'},
+  {id:8,matno:'1000-RAW-0051',legacy:'SJ-RAW-00051',desc:'Steel Sheet 2mm Cold Roll',type:'ROH',plant:'1000',status:'Pending',sapno:'',uom:'KG'},
+  {id:9,matno:'1100-ENG-0061',legacy:'SJ-ENG-00061',desc:'Timing Belt Kit 1.5L',type:'HIBE',plant:'1100',status:'Failed',sapno:'',uom:'EA'},
+  {id:10,matno:'1200-ELE-0071',legacy:'SJ-ELE-00071',desc:'ECU Module Main Controller',type:'HALB',plant:'1200',status:'Pending',sapno:'',uom:'EA'},
+  {id:11,matno:'1000-EXH-0081',legacy:'SJ-EXH-00081',desc:'Exhaust Manifold 4-Cyl',type:'FERT',plant:'1000',status:'Synced',sapno:'000000001081',uom:'EA'},
+  {id:12,matno:'2000-SPR-0091',legacy:'SJ-SPR-00091',desc:'Coolant Hose Upper',type:'HIBE',plant:'2000',status:'Draft',sapno:'',uom:'EA'},
+];
+let allMats = [...MATS]; let nextId = 13;
+
+function badge(s){const m={Synced:'b-synced',Pending:'b-pending',Failed:'b-failed',Draft:'b-draft'};return`<span class="badge ${m[s]||'b-draft'}">${s}</span>`}
+
+function renderRows(tbody,data){
+  if(!data.length){tbody.innerHTML=`<tr><td colspan="7" style="text-align:center;padding:2rem;color:var(--muted)">No materials found</td></tr>`;return}
+  tbody.innerHTML=data.map(m=>`<tr>
+    <td class="mono">${m.matno}</td>
+    <td class="mono">${m.legacy}</td>
+    <td title="${m.desc}">${m.desc}</td>
+    <td>${m.type}</td>
+    <td>${m.plant}</td>
+    <td>${badge(m.status)}</td>
+    <td><button class="act-btn" onclick="viewMat(${m.id})">View</button>${m.status!=='Synced'?`<button class="act-btn sync" onclick="syncMat(${m.id})">Sync</button>`:''}</td>
+  </tr>`).join('');
+}
+
+function refreshDash(){
+  const sy=allMats.filter(m=>m.status==='Synced').length;
+  const pe=allMats.filter(m=>m.status==='Pending').length;
+  const er=allMats.filter(m=>m.status==='Failed').length;
+  document.getElementById('s-total').textContent=allMats.length;
+  document.getElementById('s-synced').textContent=sy;
+  document.getElementById('s-pending').textContent=pe;
+  document.getElementById('s-errors').textContent=er;
+  const pct=Math.round(sy/allMats.length*100);
+  document.getElementById('prog').style.width=pct+'%';
+  document.getElementById('prog-pct').textContent=pct+'%';
+  renderRows(document.getElementById('dash-tbody'),allMats.slice(0,8));
+}
+
+function filterTable(){
+  const q=document.getElementById('search').value.toLowerCase();
+  const st=document.getElementById('f-status').value;
+  const ty=document.getElementById('f-type').value;
+  const f=allMats.filter(m=>(!q||m.matno.toLowerCase().includes(q)||m.legacy.toLowerCase().includes(q)||m.desc.toLowerCase().includes(q))&&(!st||m.status===st)&&(!ty||m.type===ty));
+  renderRows(document.getElementById('mat-tbody'),f);
+}
+
+function showPage(n){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('pg-'+n).classList.add('active');
+  const map={dashboard:0,materials:1,register:2,config:3};
+  document.querySelectorAll('.nav-btn')[map[n]].classList.add('active');
+  if(n==='materials')filterTable();
+}
+
+function viewMat(id){
+  const m=allMats.find(x=>x.id===id);if(!m)return;
+  document.getElementById('modal-title').textContent=m.desc;
+  document.getElementById('modal-body').innerHTML=`
+    <div class="form-grid" style="gap:10px;margin-bottom:1rem">
+      <div><div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:3px">SAP Material No.</div><div class="mono">${m.sapno||'—'}</div></div>
+      <div><div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:3px">Legacy Number</div><div class="mono">${m.legacy}</div></div>
+      <div><div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:3px">Portal Material No.</div><div class="mono">${m.matno}</div></div>
+      <div><div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:3px">Type / Plant</div><div>${m.type} / ${m.plant}</div></div>
+      <div class="full"><div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:3px">Status</div><div>${badge(m.status)}</div></div>
+    </div>
+    <div style="font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);font-weight:600;margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid var(--border)">BAPI Payload Preview</div>
+    <div class="api-log" style="display:block;min-height:auto;font-size:11px;color:#e2e8f0;line-height:1.7">
+{<br>&nbsp;&nbsp;"HEADDATA":{"MATERIAL":"${m.sapno||m.matno}","MATL_TYPE":"${m.type}","IND_SECTOR":"M"},<br>
+&nbsp;&nbsp;"CLIENTDATA":{"BASE_UOM":"${m.uom}","OLD_MAT_NO":"${m.legacy}"},<br>
+&nbsp;&nbsp;"PLANTDATA":{"PLANT":"${m.plant}"}<br>}
+    </div>`;
+  document.getElementById('modal-sync').onclick=()=>{syncMat(id);closeModal()};
+  document.getElementById('modal-bg').classList.add('open');
+}
+
+function closeModal(){document.getElementById('modal-bg').classList.remove('open')}
+
+function syncMat(id){
+  const m=allMats.find(x=>x.id===id);if(!m)return;
+  showToast('info','Pushing '+m.matno+' to SAP...');
+  setTimeout(()=>{
+    const ok=Math.random()>0.2;
+    m.status=ok?'Synced':'Failed';
+    if(ok)m.sapno='0000000'+String(10000+id).slice(1);
+    showToast(ok?'success':'error',ok?m.matno+' created in SAP: '+m.sapno:'SAP error: MATL_TYPE not allowed in plant '+m.plant);
+    refreshDash();filterTable();
+  },1200);
+}
+
+function syncAll(){
+  const pe=allMats.filter(m=>m.status==='Pending');
+  if(!pe.length){showToast('info','No pending materials');return}
+  showToast('info','Syncing '+pe.length+' materials...');
+  let i=0;
+  const run=()=>{if(i>=pe.length){showToast('success','Batch sync complete');refreshDash();filterTable();return}
+    const m=pe[i++];const ok=Math.random()>0.15;m.status=ok?'Synced':'Failed';if(ok)m.sapno='0000000'+String(10000+m.id).slice(1);setTimeout(run,350)};run();
+}
+
+function submitMaterial(){
+  const leg=document.getElementById('f-legacy').value.trim();
+  const dsc=document.getElementById('f-desc').value.trim();
+  const typ=document.getElementById('f-type').value;
+  const plt=document.getElementById('f-plant').value;
+  const uom=document.getElementById('f-uom').value;
+  const mode=document.getElementById('f-mode').value;
+  if(!leg||!dsc||!typ){showToast('error','Fill in all required fields');return}
+  const matno=plt+'-'+typ+'-'+String(1000+nextId).slice(1);
+  const log=document.getElementById('reg-log');
+  log.style.display='block';log.innerHTML='';
+  const addLog=(lv,msg)=>{
+    const t=new Date().toTimeString().slice(0,8);
+    const cls={OK:'lok',ERR:'lerr',INFO:'linf'}[lv];
+    log.innerHTML+=`<div class="log-row"><span class="lt">${t}</span><span class="${cls}">[${lv}]</span><span class="lmsg">&nbsp;${msg}</span></div>`;
+    log.scrollTop=log.scrollHeight;
+  };
+  addLog('INFO','Validating form data...');
+  setTimeout(()=>addLog('INFO','Building BAPI payload for '+matno),300);
+  setTimeout(()=>addLog('INFO','Calling BAPI_MATERIAL_SAVEDATA on SAP ECC...'),700);
+  setTimeout(()=>{
+    const st=mode==='draft'?'Draft':mode==='batch'?'Pending':'Synced';
+    const sn=st==='Synced'?'0000000'+String(10000+nextId).slice(1):'';
+    if(st==='Synced')addLog('OK','SAP material created: '+sn);
+    else if(st==='Pending')addLog('INFO','Queued for next batch sync');
+    else addLog('INFO','Saved as draft — not pushed to SAP');
+    allMats.unshift({id:nextId++,matno,legacy:leg,desc:dsc,type:typ,plant:plt,status:st,sapno:sn,uom});
+    refreshDash();
+    showToast('success','Material '+matno+' registered!');
+    document.getElementById('f-legacy').value='';
+    document.getElementById('f-desc').value='';
+    document.getElementById('f-type').value='';
+  },1400);
+}
+
+function saveDraft(){document.getElementById('f-mode').value='draft';submitMaterial()}
+function testConn(){showToast('info','Testing RFC connection...');setTimeout(()=>showToast('success','Connection OK — SAP ECC 6.0 EHP8'),1200)}
+
+function showToast(type,msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.className='toast '+type+' show';
+  setTimeout(()=>t.classList.remove('show'),3200);
+}
+
+refreshDash();filterTable();
+</script>
 </body>
 </html>
