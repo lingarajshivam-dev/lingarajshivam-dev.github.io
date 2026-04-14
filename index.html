@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SJ Website</title>
+</head>
+<body>
+  <h1>Welcome Shiv 🚀</h1>
+  <h2>My API Test Website</h2>
+
+  <button onclick="getData()">Call API</button>
+
+  <pre id="output"></pre>
+
+  <script>
+    function getData() {
+      fetch('https://jsonplaceholder.typicode.com/posts/1')
+        .then(res => res.json())
+        .then(data => {
+          document.getElementById('output').innerText =
+            JSON.stringify(data, null, 2);
+        });
+    }
+  </script>
+</body>
+</html>
